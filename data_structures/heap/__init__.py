@@ -9,6 +9,9 @@ class MinHeap:
     def __init__(self):
         self.l = []
 
+    def __len__(self):
+        return len(self.l)
+
     def item_at(self, idx):
         return 0 <= idx < len(self.l) and Pair(idx, self.l[idx]) or None
 
@@ -32,10 +35,10 @@ class MinHeap:
         self.l[i2] = tmp
 
     def peek(self):
-        return self.l[0] if len(self.l) else None
+        return self.l[0]
 
     def pop(self):
-        item = self.l.pop(0) if len(self.l) else None
+        item = self.l.pop(0)
         if len(self.l):
             self.l.insert(0, self.l.pop())
             self.heapify_down()
@@ -76,6 +79,7 @@ class MinHeap:
 if __name__ == '__main__':
     h = MinHeap()
     h.add(1)
+    assert h.peek() == 1
     assert h.pop() == 1
     h.add(3)
     h.add(1)
@@ -89,6 +93,13 @@ if __name__ == '__main__':
     assert h.pop() == 1
     assert h.pop() == 2
     assert h.pop() == 3
-    assert h.pop() is None
+
+    for m in (h.peek, h.pop):
+        try:
+            m()
+        except:
+            pass
+        else:
+            assert False
 
     print('Okay')
