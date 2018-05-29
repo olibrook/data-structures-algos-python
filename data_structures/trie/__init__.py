@@ -6,6 +6,7 @@ class Trie:
         def __init__(self):
             self.children = {}
             self.value = None
+            self.terminal = False
 
     def __init__(self):
         self.root = Trie.Node()
@@ -25,31 +26,44 @@ class Trie:
             if char in node.children:
                 node = node.children[char]
             else:
-                node = Trie.Node()
-                node.children[char] = node
+                child = Trie.Node()
+                node.children[char] = child
+                node = child
         node.value = value  # Store value at leaf
+        node.terminal = True
 
-    def suggestions(self, prefix):
+    def prefix_matches(self, prefix):
         node = self.root
         for char in prefix:
             if char in node.children:
                 node = node.children[char]
             else:
                 return []
-        return self.collect_terminals(node)
 
-    @staticmethod
-    def collect_terminals(node):
         ret = []
-        stack = [node]
+        stack = [(prefix, node)]
         while stack:
-            n = stack.pop()
-            stack.extend(n.children)
-            if not n.children:  # Terminal
-                ret.append(node.value)
+            prefix, node = stack.pop()
+            for char, child_node in node.children.items():
+                stack.append((prefix + char, child_node))
+            if node.terminal:  # Current prefix is a complete key
+                ret.append((prefix, node.value))
         return ret
 
 
 if __name__ == '__main__':
     t = Trie()
-    t.set('cat', 'cat')
+    t.set('cat', 'miaow')
+    t.set('dog', 'woof')
+
+    assert t.get('cat') == 'miaow'
+    assert t.get('dog') == 'woof'
+
+    t.set('caterpillar', 'rustle')
+    assert t.get('caterpillar') == 'rustle'
+
+    assert sorted(t.prefix_matches('cat')) == [
+        ('cat', 'miaow'),
+        ('caterpillar', 'rustle'),
+    ]
+    print('OK')
