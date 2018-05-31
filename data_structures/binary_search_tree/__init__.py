@@ -14,6 +14,9 @@ class BST:
         self.root = None
 
     def __iter__(self):
+        return self.inorder()
+
+    def inorder(self):
         current = self.root
         stack = []
         while True:
