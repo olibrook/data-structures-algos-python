@@ -23,12 +23,9 @@ class Trie:
     def set(self, key, value):
         node = self.root
         for char in key:
-            if char in node.children:
-                node = node.children[char]
-            else:
-                child = Trie.Node()
-                node.children[char] = child
-                node = child
+            if char not in node.children:
+                node.children[char] = Trie.Node()
+            node = node.children[char]
         node.value = value  # Store value at leaf
         node.terminal = True
 
