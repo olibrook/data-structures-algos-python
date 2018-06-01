@@ -1,5 +1,6 @@
 
-class BST:
+
+class BinarySearchTree:
 
     class Node:
         __slots__ = ['left', 'right', 'key', 'value']
@@ -38,7 +39,7 @@ class BST:
                 return curr.value
             else:
                 curr = curr.left if key < curr.key else curr.right
-        return None
+        raise KeyError(key)
 
     def set(self, key, value):
         prev = None
@@ -50,7 +51,7 @@ class BST:
                 prev = curr
                 curr = curr.left if key < curr.key else curr.right
 
-        node = BST.Node(key=key, value=value)
+        node = BinarySearchTree.Node(key=key, value=value)
         if not prev:
             self.root = node
         else:
@@ -61,27 +62,70 @@ class BST:
             else:
                 prev.value = value  # Update
 
-    def delete(self):
-        pass
+    def delete(self, key):
+        def _delete(k, node):
+            if node is None:
+                return None
+            if k < node.key:
+                node.left = _delete(k, node.left)
+            elif k > node.key:
+                node.right = _delete(k, node.right)
+            else:
+                if not node.left and not node.right:
+                    return None
+                elif node.left and not node.right:
+                    return node.right
+                elif not node.left and node.right:
+                    return node.left
+                else:
+                    # Trickiest case, with both children -
+                    # replace this node by copying and then deleting
+                    # the successor in its place.
+                    successor = self.find_min(node.right)
+                    node.key = successor.key
+                    node.value = successor.value
+                    node.right = _delete(successor.key, node.right)
+                    return node
+
+        self.root = _delete(key, self.root)
+
+    @staticmethod
+    def find_min(node):
+        curr = node
+        while curr.left:
+            curr = curr.left
+        return curr
 
 
 if __name__ == "__main__":
-    import string
-    import random
+    def test():
+        import string
+        import random
 
-    bst = BST()
-    items = list(enumerate(string.letters))
-    random.shuffle(items)
-    for k, v in items:
-        bst.set(k, v)
-        assert bst.get(k) == v
+        bst = BinarySearchTree()
+        items = list(enumerate(string.letters))
+        random.shuffle(items)
+        for k, v in items:
+            bst.set(k, v)
+            assert bst.get(k) == v
 
-    bst = BST()
-    items = list(range(100))
-    randomized = items[:]
-    random.shuffle(randomized)
-    for i in randomized:
-        bst.set(i, 'v')
-    assert list(bst) == list((i, 'v') for i in items)
+        bst = BinarySearchTree()
+        items = list(range(100))
+        randomized = items[:]
+        random.shuffle(randomized)
+        for i in randomized:
+            bst.set(i, 'v')
+        assert list(bst) == list((i, 'v') for i in items)
 
-    print('Okay')
+        bst = BinarySearchTree()
+        r = list(range(50000))
+        random.shuffle(r)
+        for i in r:
+            bst.set(i, 'v')
+        for i in r:
+            bst.delete(i)
+        assert list(bst) == []
+
+        print('Okay')
+
+    test()
