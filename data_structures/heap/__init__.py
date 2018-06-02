@@ -12,6 +12,10 @@ class MinHeap:
     def __len__(self):
         return len(self.l)
 
+    def __iter__(self):
+        while len(self):
+            yield self.pop()
+
     def item_at(self, idx):
         return 0 <= idx < len(self.l) and Pair(idx, self.l[idx]) or None
 
@@ -59,7 +63,7 @@ class MinHeap:
                     break
                 else:
                     self.swap(current.idx, parent.idx)
-                    current = parent
+                    current = self.item_at(parent.idx)
 
     def heapify_down(self):
         # Compare the root element to its children and swap root with the smallest
@@ -73,7 +77,7 @@ class MinHeap:
                 if smallest is None or current.v < smallest.v:
                     break
                 self.swap(current.idx, smallest.idx)
-                current = smallest
+                current = self.item_at(smallest.idx)
 
 
 if __name__ == '__main__':
