@@ -4,11 +4,11 @@ def main():
     import algorithms.sorting.bubble_sort as b_sort
     import algorithms.sorting.heap_sort as h_sort
     import algorithms.sorting.merge_sort as m_sort
+    import algorithms.sorting.quick_sort as q_sort
 
-    for m in [i_sort, s_sort, b_sort, h_sort, m_sort]:
-        actual = m.sort(list(reversed(range(10))))
-        expected = list(range(10))
-        print(actual)
+    for m in [i_sort, s_sort, b_sort, h_sort, m_sort, q_sort]:
+        actual = m.sort(list(reversed(range(573))))
+        expected = list(range(573))
         assert actual == expected
         assert m.sort([]) == []
 

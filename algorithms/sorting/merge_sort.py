@@ -7,7 +7,7 @@ def sort(arr):
         mid = len(arr) / 2
         left = arr[0:mid]
         right = arr[mid:len(arr)]
-        return merge(sort(left), sort(right));
+        return merge(sort(left), sort(right))
 
 
 def merge(left, right):
