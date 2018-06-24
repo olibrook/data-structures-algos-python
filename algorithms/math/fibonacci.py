@@ -1,18 +1,15 @@
 
 
 def fib_gen():
-    """The infinite fibonacci sequence"""
     yield 1
-    l = [0, 1]
+    pp, p = 0, 1
     while True:
-        cur = sum(l)
+        cur = pp + p
         yield cur
-        l[0] = l[1]
-        l[1] = cur
+        pp, p = p, cur
 
 
 def fib(n):
-    """Get the nth fibonacci number"""
     f = fib_gen()
     v = 0
     for i in range(n):
