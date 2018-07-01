@@ -30,17 +30,17 @@ def topological_sort(graph, sort=None):
         if vertex in state:
             return
         state[vertex] = grey
-        for edge in sort(graph.iter_neighbours(vertex)):
-            color = state.get(edge.destination, None)
+        for neighbour in sort(graph.vertices_from(vertex)):
+            color = state.get(neighbour, None)
             if color == grey:
                 raise ValueError("The graph is not a DAG - found a cycle.")
             if color == black:
                 continue
-            dfs(edge.destination)
+            dfs(neighbour)
         ret.insert(0, vertex)
         state[vertex] = black
 
-    for v in sort(graph.iter_vertices()):
+    for v in sort(graph.vertices()):
         dfs(v)
 
     return ret

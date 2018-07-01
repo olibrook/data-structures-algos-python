@@ -30,18 +30,22 @@ class Graph:
         # Delete vertex and forward edges
         del self.graph[vertex]
         # Delete backward edges
-        matching = list(e for e in self.iter_edges() if e.destination == vertex)
+        matching = list(e for e in self.edges() if e.destination == vertex)
         for e in matching:
             del self.graph[e.source][e.destination]
 
-    def iter_neighbours(self, vertex):
+    def edges_from(self, vertex):
         for destination, weight in self.graph[vertex].items():
             yield Edge(vertex, destination, weight)
 
-    def iter_edges(self):
+    def edges(self):
         for source, edges in self.graph.items():
             for destination, weight in edges.items():
                 yield Edge(source, destination, weight)
 
-    def iter_vertices(self):
+    def vertices_from(self, vertex):
+        for destination, _ in self.graph[vertex].items():
+            yield destination
+
+    def vertices(self):
         return self.graph.keys()

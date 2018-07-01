@@ -34,10 +34,10 @@ def test():
         ug.add_edge('v{}'.format(i), '#v{}'.format(i))
 
     for i in range(10):
-        assert list(ug.iter_neighbours('v{}'.format(i))) == [
+        assert list(ug.edges_from('v{}'.format(i))) == [
             g.Edge('v{}'.format(i), '#v{}'.format(i), 1)
         ]
-        assert list(ug.iter_neighbours('#v{}'.format(i))) == [
+        assert list(ug.edges_from('#v{}'.format(i))) == [
             g.Edge('#v{}'.format(i), 'v{}'.format(i), 1)
         ]
 
@@ -45,13 +45,13 @@ def test():
     for i in range(10):
         expected_edges.append(g.Edge('v{}'.format(i), '#v{}'.format(i), 1))
         expected_edges.append(g.Edge('#v{}'.format(i), 'v{}'.format(i), 1))
-    assert sorted(list(ug.iter_edges())) == sorted(expected_edges)
+    assert sorted(list(ug.edges())) == sorted(expected_edges)
 
     expected_vertices = []
     for i in range(10):
         expected_vertices.append('v{}'.format(i))
         expected_vertices.append('#v{}'.format(i))
-    assert sorted(list(ug.iter_vertices())) == sorted(expected_vertices)
+    assert sorted(list(ug.vertices())) == sorted(expected_vertices)
 
     for i in range(10):
         ug.delete_vertex('v{}'.format(i))
