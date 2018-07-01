@@ -20,6 +20,6 @@ cases = (
 
 @pytest.mark.parametrize('data,expected', cases)
 def test(data, expected):
-    assert wbc.calculate(data) == expected
+    assert wbc.run(data) == expected
 
 

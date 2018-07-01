@@ -29,7 +29,7 @@ def equal(it1, it2):
     return all(x == y for x, y in itertools.zip_longest(it1, it2, fillvalue=Empty))
 
 
-def is_symmetric(node):
+def run(node):
     """Return True if the tree rooted at `node` is symmetric.
 
     Method:
@@ -52,7 +52,7 @@ def is_symmetric(node):
         l_items = (x.value for x in level_order(node, left_to_right=True))
         r_items = (x.value for x in level_order(node, left_to_right=False))
         symmetric = (
-            l_node is r_node and (is_symmetric(l_node)) or equal(l_items, r_items)
+            l_node is r_node and (run(l_node)) or equal(l_items, r_items)
         )
         i += 1
     return symmetric

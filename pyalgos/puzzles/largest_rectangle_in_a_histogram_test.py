@@ -18,6 +18,6 @@ cases = (
 
 @pytest.mark.parametrize('data,expected', cases)
 def test(data, expected):
-    assert largest.find(data) == expected
+    assert largest.run(data) == expected
 
 

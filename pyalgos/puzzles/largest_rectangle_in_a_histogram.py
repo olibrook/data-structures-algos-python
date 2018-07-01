@@ -24,7 +24,7 @@ import collections
 Point = collections.namedtuple('Point', ['x', 'y'])
 
 
-def find(data):
+def run(data):
     largest = 0
     stack = []
     current = None

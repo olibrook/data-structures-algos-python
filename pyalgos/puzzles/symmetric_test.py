@@ -5,10 +5,10 @@ def test_symmetric():
     _ = s.TreeNode
 
     # Single
-    assert s.is_symmetric(_('a'))
+    assert s.run(_('a'))
 
     # Single chain
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b', [
                 _('c')
@@ -16,21 +16,21 @@ def test_symmetric():
         ])
     )
 
-    assert not s.is_symmetric(
+    assert not s.run(
         _('a', [
             _('b'),
             _('c'),
         ])
     )
 
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b'),
             _('b'),
         ])
     )
 
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b'),
             _('c'),
@@ -38,7 +38,7 @@ def test_symmetric():
         ])
     )
 
-    assert not s.is_symmetric(
+    assert not s.run(
         _('a', [
             _('b'),
             _('c'),
@@ -46,7 +46,7 @@ def test_symmetric():
         ])
     )
 
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b', [
                 _('c', [
@@ -66,7 +66,7 @@ def test_symmetric():
         ])
     )
 
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b', [
                 _('c', [
@@ -87,7 +87,7 @@ def test_symmetric():
     )
 
     # Check proper handling of center nodes
-    assert s.is_symmetric(
+    assert s.run(
         _('a', [
             _('b'),
             _('c', [
@@ -98,7 +98,7 @@ def test_symmetric():
         ])
     )
 
-    assert not s.is_symmetric(
+    assert not s.run(
         _('a', [
             _('b'),
             _('c', [

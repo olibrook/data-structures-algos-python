@@ -1,11 +1,10 @@
 """Calculate the water that would be contained between the towers
 in a bar chart, if poured from the top.
 
-This implementation adds each tower to a stack backtracking
-each time a tower is higher than the previous value. At this
-point, we backtrack to the previous highest tower and
-calculate the volume of water up to this new high water
-mark.
+This implementation adds each tower to a stack and backtracks
+each time a tower is higher than the previous one. By
+backtracking to the previous highest tower we can calculate
+the volume of water contained up to this new high water mark.
 
 After backtracking, it is possible to compress the data on
 the stack as follows:
@@ -18,24 +17,21 @@ Can reduce to
     volume = 0
     [1x1, 4x0, 1x1]
 
-And after calculating the volume so far, can be reduced
-even further:
+After calculating the volume between the 1x1 towers reduce to:
 
     volume = 4
     [6x1]
 
-Note that the volume of water is calculated incrementally in
-horizontal, not vertical, slices.
+Note that water volume is calculated in horizontal, not vertical, slices.
 
 """
-
 import collections
 
 
 Line = collections.namedtuple('Line', ['x1', 'x2', 'y'])
 
 
-def calculate(data):
+def run(data):
     stack = []
     queue = []
     volume = 0
