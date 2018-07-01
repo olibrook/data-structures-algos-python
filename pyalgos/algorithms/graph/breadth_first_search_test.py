@@ -12,5 +12,5 @@ def test():
     graph.add_edge('c', 'g')
     graph.add_edge('f', 'e')
     l = []
-    b.bfs(graph, 'a', visit=l.append, sort=sorted)
+    b.bfs(graph, 'a', visit=l.append)
     assert l == ['a', 'b', 'c', 'e', 'd', 'f', 'g']

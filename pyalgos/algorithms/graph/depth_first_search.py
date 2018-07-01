@@ -2,7 +2,7 @@ def noop(x):
     return x
 
 
-def dfs(graph, vertex, visit=noop, sort=noop):
+def dfs(graph, vertex, visit=noop):
     stack = [vertex]
     seen = set()
     while stack:
@@ -10,5 +10,5 @@ def dfs(graph, vertex, visit=noop, sort=noop):
         if curr not in seen:
             seen.add(curr)
             visit(curr)
-            for vertex in sort(graph.vertices_from(curr)):
+            for vertex in graph.vertices_from(curr):
                 stack.append(vertex)

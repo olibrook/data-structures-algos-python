@@ -23,15 +23,15 @@ def test_hamburger():
     gr.add_edge(chop_onions, fry_onions)
     gr.add_edge(peel_onions, chop_onions)
 
-    assert t.topological_sort(gr, sorted) == [
-        'peel onions',
-        'grill patty',
-        'put patty on bun',
-        'chop onions',
-        'fry onions',
-        'put onion on patty',
-        'put_top_on_bun',
-        'serve'
+    assert t.topological_sort(gr) == [
+        peel_onions,
+        chop_onions,
+        fry_onions,
+        grill_patty,
+        put_patty_on_bun,
+        put_onion_on_patty,
+        put_top_on_bun,
+        serve
     ]
 
 
