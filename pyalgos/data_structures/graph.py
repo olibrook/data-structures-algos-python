@@ -4,17 +4,28 @@ Edge = collections.namedtuple('Edge', ['source', 'destination', 'weight'])
 
 
 class Graph:
-    """A Graph data structure implemented as an adjacency list. For sparse
-    graphs, this saves memory compared to an adjacency matrix.
+    """A Graph data structure implemented as an adjacency list.
+    For sparse graphs, this saves memory compared to an adjacency matrix.
+
+    Structure of the graph is:
+
+        {vertex1: {vertex2: weight}}
+
+    If the graph is undirected we add an additional reverse edge for
+    every call to add_edge().
+
+    Note: OrderedDict is not required, but simplifies testing.
 
     """
     def __init__(self, is_directed=False):
         self.is_directed = is_directed
-        self.graph = {}
+        self.graph = collections.OrderedDict()
 
     def add_edge(self, source, destination, weight=1):
-        self.graph.setdefault(source, {})[destination] = weight
-        destination = self.graph.setdefault(destination, {})
+        self.graph.setdefault(
+            source,
+            collections.OrderedDict())[destination] = weight
+        destination = self.graph.setdefault(destination, collections.OrderedDict())
         if not self.is_directed:
             destination[source] = weight
 
@@ -24,7 +35,7 @@ class Graph:
             del self.graph[destination][source]
 
     def add_vertex(self, vertex):
-        self.graph.setdefault(vertex, {})
+        self.graph.setdefault(vertex, collections.OrderedDict())
 
     def delete_vertex(self, vertex):
         # Delete vertex and forward edges
