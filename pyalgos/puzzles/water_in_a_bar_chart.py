@@ -1,3 +1,34 @@
+"""Calculate the water that would be contained between the towers
+in a bar chart, if poured from the top.
+
+This implementation adds each tower to a stack backtracking
+each time a tower is higher than the previous value. At this
+point, we backtrack to the previous highest tower and
+calculate the volume of water up to this new high water
+mark.
+
+After backtracking, it is possible to compress the data on
+the stack as follows:
+
+    volume = 0
+    [1, 0, 0, 0, 0, 1]
+
+Can reduce to
+
+    volume = 0
+    [1x1, 4x0, 1x1]
+
+And after calculating the volume so far, can be reduced
+even further:
+
+    volume = 4
+    [6x1]
+
+Note that the volume of water is calculated incrementally in
+horizontal, not vertical, slices.
+
+"""
+
 import collections
 
 
